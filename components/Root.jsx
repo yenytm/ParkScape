@@ -9,7 +9,7 @@ export default function Root() {
         
       </nav>
       <Outlet />
-      <footer style={{display: "flex", backgroundColor: "green", margin: "auto"}}>
+      <footer style={{display: "flex", backgroundColor: "pink", margin: "auto"}}>
       <p>Footer</p>
       </footer>
     </>
