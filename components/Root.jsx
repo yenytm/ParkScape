@@ -4,7 +4,7 @@ import "./Root.css";
 export default function Root() {
   return (
     <>
-      <nav style={{display: "flex", margin: "auto", backgroundColor: "red"}}>
+      <nav style={{display: "flex", margin: "auto", backgroundColor: "Blue"}}>
         <Link to="/">Home</Link>
         
       </nav>
