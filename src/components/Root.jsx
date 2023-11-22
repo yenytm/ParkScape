@@ -2,15 +2,12 @@ import {Link, Outlet } from "react-router-dom";
 import "./Root.css";
 import { About } from "../pages/About";
 import { Hero } from "./hero/Hero";
+import { Navbar } from "./Navbar";
 
 export default function Root() {
   return (
     <>
-      <nav style={{ display: "flex", margin: "auto", backgroundColor: "" }}>
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-      </nav>
-
+    <Navbar />
       <Outlet />
       <Hero />
 
