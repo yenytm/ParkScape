@@ -1,0 +1,13 @@
+
+
+.heroBody{
+    margin: 0;
+    background-color: rgb(255, 255, 255);
+    border: rgb(10, 52, 17) solid 2px;
+    display: flex;
+    justify-content: center;
+
+}
+
+
+
