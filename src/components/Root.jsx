@@ -1,7 +1,7 @@
 import {Link, Outlet } from "react-router-dom";
 import "./Root.css";
 import { About } from "../pages/About";
-import { Hero } from "../pages/Hero";
+import { Hero } from "./hero/Hero";
 
 export default function Root() {
   return (
