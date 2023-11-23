@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client'
 import Root from './components/Root.jsx'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { About } from './pages/About.jsx'
+import {Addresses, loader as addressesLoader} from "./components/Addresses.jsx"
+
 
 const router = createBrowserRouter ([
   {
@@ -16,6 +18,16 @@ const router = createBrowserRouter ([
       
     ]
   },
+  {
+    path:"/addresses",
+    element:<Addresses/>,
+    loader:addressesLoader,
+  },
+  {
+  path:"address/:state",
+  element:<Address/>,
+  loader: loader
+},
 ])
 
 
