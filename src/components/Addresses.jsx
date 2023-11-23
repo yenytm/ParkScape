@@ -1,6 +1,6 @@
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
-export async function addressesLoader() {
+export async function loader() {
   try {
     const response = await fetch(
       "https://random-data-api.com/api/v2/addresses?size=10"
@@ -20,7 +20,9 @@ export const Addresses = () => {
     <ul>
       {addresses.map((address) => (
         <li key={address.id}>
-          <Link to={"/addresses/${address.state}"}></Link>
+          <Link to={`/addresses/${address.state}`}>
+            {address.state}
+          </Link>
         </li>
       ))}
     </ul>

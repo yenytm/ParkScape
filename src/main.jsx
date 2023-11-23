@@ -23,11 +23,11 @@ const router = createBrowserRouter ([
     element:<Addresses/>,
     loader:addressesLoader,
   },
-  {
-  path:"address/:state",
-  element:<Address/>,
-  loader: loader
-},
+//   {
+//   path:"address/:state",
+//   element:<Address/>,
+//   loader: loader
+// },
 ])
 
 
