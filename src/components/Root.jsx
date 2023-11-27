@@ -7,16 +7,16 @@ import { Navbar } from "./Navbar";
 export default function Root() {
   return (
     <>
-    <Navbar />
+      <Navbar />
       <Outlet />
       <Hero />
 
       <footer
         style={{ display: "flex", backgroundColor: "", marginTop: "3rem" }}
       >
-        <span> © 2023 ParkScape Co.</span>
         <Link to="/">Home</Link>
-        <Link to="/">About</Link>
+        <span> © 2023 ParkScape Co.</span>
+        <Link to="/about">About</Link>
       </footer>
     </>
   );
