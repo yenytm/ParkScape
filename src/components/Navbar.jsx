@@ -43,7 +43,7 @@ export function Navbar() {
             </ul>
           </div>
           <Link to="/" className="w-24 hover:scale-110 transition-all duration-300">
-            <img className="LogoPic" src="src/assets/Logo.png" alt="" />
+            <img className="LogoPic" src="Logo.png" alt="" />
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
