@@ -4,7 +4,7 @@ import Root from './components/Root.jsx'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { About } from './pages/About.jsx'
 import {Addresses, loader as addressesLoader} from "./components/Addresses.jsx"
-
+import './index.css'
 
 const router = createBrowserRouter ([
   {
