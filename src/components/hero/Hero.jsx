@@ -7,7 +7,7 @@ export  function Hero () {
         <div className='heroBody'>
         <div className="mainBody">
             <a target='_blank' href="">
-                <img className='heroMainPic' src="src/assets/ParkScape.png" alt="" />
+                <img className='heroMainPic' src="ParkScape.png" alt="" />
                 {/* <img className='heroMainPic' src="src/assets/mainPic.png" alt="" /> */}
 
 
