@@ -27,13 +27,13 @@ export function Navbar() {
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <a>Parent</a>
+                <a>Explore</a>
                 <ul className="p-2">
                   <li>
-                    <a>Submenu 1</a>
+                  <Link to="/regions">Regions</Link>
                   </li>
                   <li>
-                    <a>Submenu 2</a>
+                  <Link to="/states">States</Link>
                   </li>
                 </ul>
               </li>
@@ -55,11 +55,12 @@ export function Navbar() {
               <details>
                 <summary>Explore</summary>
                 <ul className="p-2">
-                  <li>
-                    <a>Region</a>
+                  <li > 
+                    <Link to="/regions">Regions</Link>
+
                   </li>
                   <li>
-                    <a>State</a>
+                  <Link to="/states">States</Link>
                   </li>
                 </ul>
               </details>

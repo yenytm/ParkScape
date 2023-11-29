@@ -5,6 +5,11 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { About } from './pages/About.jsx'
 import {Addresses, loader as addressesLoader} from "./components/Addresses.jsx"
 import './index.css'
+import Regions from './pages/Regions.jsx'
+import States from './pages/States.jsx'
+import { Hero } from './components/hero/Hero.jsx'
+
+
 
 const router = createBrowserRouter ([
   {
@@ -12,9 +17,25 @@ const router = createBrowserRouter ([
     element: <Root />,
     children: [
       {
+        path:"/",
+        element: <Hero/>,
+      },
+
+
+      {
         path:"/about",
         element: <About/>,
       },
+      {
+        path:"/regions",
+        element: <Regions/>,
+      },
+      {
+        path:"/states",
+        element: <States/>,
+      },
+
+
       
     ]
   },
@@ -23,6 +44,15 @@ const router = createBrowserRouter ([
     element:<Addresses/>,
     loader:addressesLoader,
   },
+  // {
+  //   path:"/regions",
+  //   element:<Regions/>,
+  // },
+  // {
+  //   path:"/states",
+  //   element:<States/>,
+  // },
+
 //   {
 //   path:"address/:state",
 //   element:<Address/>,
