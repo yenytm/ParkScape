@@ -4,17 +4,10 @@ export  function Hero () {
     return(
 
 
-        <div className='heroBody'>
-        <div className="mainBody">
+        <div id="heroBody" className='flex-auto place-items-center' >
             <a target='_blank' href="">
                 <img className='heroMainPic' src="ParkScape.png" alt="" />
-                {/* <img className='heroMainPic' src="src/assets/mainPic.png" alt="" /> */}
-
-
             </a>
-        </div>
-
-
     </div>
     )
 }
