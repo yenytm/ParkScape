@@ -7,7 +7,7 @@ export const statesNames = [
     { label: 'Connecticut', value: 'connecticut' },
     { label: 'Delaware', value: 'delaware' },
     { label: 'Florida', value: 'florida' },
-    { label: 'Feorgia', value: 'georgia' },
+    { label: 'Georgia', value: 'georgia' },
     { label: 'Hawaii', value: 'hawaii' },
     { label: 'Idaho', value: 'idaho' },
     { label: 'Illinois', value: 'illinois' },
