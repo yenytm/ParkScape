@@ -2,6 +2,7 @@ import {Link, Outlet } from "react-router-dom";
 import "./Root.css";
 import { Navbar } from "./Navbar";
 
+
 export default function Root() {
   return (
     <>
