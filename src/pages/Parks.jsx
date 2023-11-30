@@ -83,12 +83,12 @@ export async function getParks() {
 export default function Parks() {
   const parks = useLoaderData();
   return (
-    <ul className="flex gap-4 flex-wrap">
+    <ul className="flex gap-4 flex-wrap  justify-center">
       {parks.map((park) => (
         <li key={park.id}>
-          <div className="card w-96 bg-base-100 shadow-xl">
+          <div className="card w-96 h-[40rem]  bg-base-100 shadow-xl">
             <figure>
-              <img
+              <img 
                 src={park.images[0].url}
                 alt={park.images[0].altText}
               />
@@ -97,12 +97,10 @@ export default function Parks() {
               <h2 className="card-title">{park.fullName}</h2>
               <p>{park.description}</p>
               <div className="card-actions justify-end">
-                <Link to={'park/' + park.name} className="btn btn-primary">Buy Now</Link>
+                <Link to={'park/' + park.name} className="btn btn-primary">More Info</Link>
               </div>
             </div>
           </div>
-
-          <Link to={`/parks/${park.state}`}>{park.fullName}</Link>
         </li>
       ))}
     </ul>
