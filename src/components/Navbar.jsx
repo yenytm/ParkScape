@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+
 export function Navbar() {
   return (
     <>
@@ -30,10 +31,10 @@ export function Navbar() {
                 <a>Explore</a>
                 <ul className="p-2">
                   <li>
-                  <Link to="/regions">Regions</Link>
+                    <Link to="/regions">Regions</Link>
                   </li>
                   <li>
-                  <Link to="/states">States</Link>
+                    <Link to="/states">States</Link>
                   </li>
                 </ul>
               </li>
@@ -42,25 +43,27 @@ export function Navbar() {
               </li>
             </ul>
           </div>
-          <Link to="/" className="w-24 hover:scale-110 transition-all duration-300">
-            <img className="LogoPic" src="Logo.png" alt="" />
+          <Link
+            to="/"
+            className="w-24 hover:scale-110 transition-all duration-300"
+          >
+            <img className="LogoPic" src="ParkScapeLogo.png" alt="" />
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
-             <Link to="/">Home</Link>
+              <Link to="/">Home</Link>
             </li>
             <li>
               <details>
                 <summary>Explore</summary>
                 <ul className="p-2">
-                  <li > 
+                  <li>
                     <Link to="/regions">Regions</Link>
-
                   </li>
                   <li>
-                  <Link to="/states">States</Link>
+                    <Link to="/states">States</Link>
                   </li>
                   <li>
                   <Link to="/parks">Parks</Link>
@@ -69,7 +72,9 @@ export function Navbar() {
                 </ul>
               </details>
             </li>
-            <li > <Link to="/about">About</Link>
+            <li>
+              {" "}
+              <Link to="/about">About</Link>
             </li>
           </ul>
         </div>
