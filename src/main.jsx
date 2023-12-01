@@ -8,6 +8,8 @@ import './index.css'
 import Regions from './pages/Regions.jsx'
 import States from './pages/States.jsx'
 import { Hero } from './components/hero/Hero.jsx'
+import Florida from './pages/Florida.jsx'
+import Parks, { getParks } from './pages/Parks.jsx'
 
 
 
@@ -31,9 +33,20 @@ const router = createBrowserRouter ([
         element: <Regions/>,
       },
       {
+        path:"/parks",
+        element: <Parks />,
+        loader: getParks
+      },
+
+      {
         path:"/states",
         element: <States/>,
       },
+      {
+        path:"state/florida",
+        element: <Florida/>,
+      },
+
 
 
       

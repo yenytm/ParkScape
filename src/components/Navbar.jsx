@@ -65,6 +65,10 @@ export function Navbar() {
                   <li>
                     <Link to="/states">States</Link>
                   </li>
+                  <li>
+                  <Link to="/parks">Parks</Link>
+                  </li>
+
                 </ul>
               </details>
             </li>
