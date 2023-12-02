@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 const api_key = import.meta.env.VITE_NPS_KEY;
 const url = `https://developer.nps.gov/api/v1/parks?API_KEY=${api_key}`;
 
-function transformParkData(data) {
+export function transformParkData(data) {
 	const {
 		id,
 		url,
@@ -148,7 +148,7 @@ export default function Parks() {
 								</div>
 								<div className="card-actions justify-center pb-4">
 										<Link
-											to={"park/" + park.name}
+											to={`/park/${park.name}/${park.parkCode}`}
 											className="btn bg-green-700 text-white hover:bg-white hover:text-green-700 hover:border-green-700">
 											More Info
 										</Link>
