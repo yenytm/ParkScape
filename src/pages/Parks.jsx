@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 const api_key = import.meta.env.VITE_NPS_KEY;
 const url = `https://developer.nps.gov/api/v1/parks?API_KEY=${api_key}`;
 
-function transformParkData(data) {
+export function transformParkData(data) {
 	const {
 		id,
 		url,
@@ -108,7 +108,7 @@ export default function Parks() {
 				{filteredParks.length > 0 ? (
 					filteredParks.map((park) => (
 						<li key={park.id}>
-							<div className="card w-96 h-[40rem]  bg-base-100 shadow-xl">
+							<div className="card w-96 h-[30rem]  bg-base-100 shadow-xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-120 duration-300 	">
 								<div className="h-[15rem] w-96 rounded-md overflow-hidden relative">
 									<img
 										className="h-full w-full object-cover"
@@ -117,11 +117,16 @@ export default function Parks() {
 									/>
 								</div>
 
-								<div className="card-body">
+								<div className="card-body h-54 ">
 									<h2 className="card-title">
 										{park.fullName}
 									</h2>
-									<p>{park.description}</p>
+									<span>
+									{park.addresses[0].line1}, </span>
+										
+									<span>	{park.addresses[0].city} { }
+									{park.addresses[0].stateCode}, { }
+									{park.addresses[0].postalCode}</span>
 									{/*
 									<ul className="flex flex-col gap-2">
                   {park.activities.map((activity) => (
@@ -140,14 +145,15 @@ export default function Parks() {
                         ))}
                         </ul>
                       */}
-									<div className="card-actions justify-end">
+								</div>
+								<div className="card-actions justify-center pb-4">
 										<Link
-											to={"park/" + park.name}
-											className="btn btn-primary">
+											to={`/park/${park.name}/${park.parkCode}`}
+											className="btn bg-green-700 text-white hover:bg-white hover:text-green-700 hover:border-green-700">
 											More Info
 										</Link>
 									</div>
-								</div>
+
 							</div>
 						</li>
 					))

@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom/client'
 import Root from './components/Root.jsx'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { About } from './pages/About.jsx'
-import {Addresses, loader as addressesLoader} from "./components/Addresses.jsx"
+import {Addresses, loader as addressesLoader, loader} from "./components/Addresses.jsx"
 import './index.css'
 import Regions from './pages/Regions.jsx'
 import States from './pages/States.jsx'
 import { Hero } from './components/hero/Hero.jsx'
 import Florida from './pages/Florida.jsx'
 import Parks, { getParks } from './pages/Parks.jsx'
+import ParkDetails, { getParkDetails } from './pages/ParkDetails.jsx'
 
 
 
@@ -35,7 +36,11 @@ const router = createBrowserRouter ([
         element: <Parks />,
         loader: getParks
       },
-
+      {
+        path:"/park/:name/:code",
+        element: <ParkDetails />,
+        loader: getParkDetails
+      },
       {
         path:"/states",
         element: <States/>,
