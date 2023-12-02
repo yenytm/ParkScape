@@ -39,9 +39,6 @@ export default function ParkFilter({
 						</select>
 					);
 				})}
-				<div className="indicator">
-					<button className="btn join-item">Search</button>
-				</div>
 			</div>
 		</>
 	);
