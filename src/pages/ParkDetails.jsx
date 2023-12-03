@@ -21,20 +21,21 @@ export default function ParkDetails() {
   return (
     <div>
       <div className="carousel rounded-box ">
-        <div className="carousel-item w-50 h-[24rem]">
+        <div id="slide1" className="carousel-item w-50 h-[34rem]">
           <img src={park.images[0].url} alt={park.images[0].altText} />
         </div>
-        <div className="carousel-item w-50 h-[24rem]">
+        <div id="slide1" className="carousel-item w-50 h-[34rem]">
           <img src={park.images[1].url} alt={park.images[1].altText} />
         </div>
-        <div className="carousel-item w-50 h-[24rem]">
+        <div id="slide1" className="carousel-item w-50 h-[34rem]">
           <img src={park.images[2].url} alt={park.images[2].altText} />
         </div>
       </div>
       <div>
         <h1 className="card-title">{park.fullName}</h1>
         <p>
-          Location: {}
+          <strong> Location: </strong>
+          {}
           <span>{park.addresses[0].line1}, </span>
           <span>
             {" "}
@@ -44,15 +45,22 @@ export default function ParkDetails() {
           </span>
         </p>
         <p>
-          Operating Hours: {}
-          <span>{park.operatingHours[0].name}, </span>
+          <strong> Park Description: </strong>
+          {} {park.description}
         </p>
-
 
         <p>
-          Park Description: {} {park.description}
+          <strong> Activities: </strong>
+          {}
+          <span>
+            {park.activities.map((activity, name) => (
+              <span key={name}>
+                {activity}
+                {name < park.activities.length - 1 && ", "}
+              </span>
+            ))}
+          </span>
         </p>
-        
       </div>
     </div>
   );

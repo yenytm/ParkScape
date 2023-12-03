@@ -36,7 +36,8 @@ export function transformParkData(data) {
 		description,
 		latitude,
 		longitude,
-		activities,
+		activities: activities.map((activity)=> activity.name ),
+    
 		topics,
 		state: states,
 		phoneNumbers: contacts.phoneNumbers.map((phone) => phone.phoneNumber),
