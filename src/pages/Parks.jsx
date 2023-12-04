@@ -86,6 +86,19 @@ export async function getParks() {
 	}
 }
 
+//pagination code
+// function updateContent(parks) {
+// 	const startItem = (currentPage - 1) * itemsPerPage + 1;
+// 	const endItem = startItem + itemsPerPage - 1;
+
+// 	const pageContentDisplay = parks
+// 		.slice(startItem - 1, endItem)
+// 		.join(", ");
+
+// 	const pageDisplay = `${currentPage}/${totalItems / itemsPerPage}`;
+// }
+
+
 export default function Parks() {
 	const parks = useLoaderData();
 	const [filteredParks, setFilteredParks] = useState(parks);
