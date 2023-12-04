@@ -2,8 +2,6 @@
 export function About() {
 	return (
     <>
-      <h1> ABOUT </h1>
-
       <div className="carousel w-full">
         {/*THIS IS THE FIRST IMAGE IN CAROUSEL */}
         <div
@@ -15,7 +13,7 @@ export function About() {
         >
           <div className="hero-overlay bg-opacity-60"></div>
           <div className="hero-content text-center text-neutral-content">
-            <div className="max-w-md">
+            <div className="max-w-md bg-black bg-opacity-30">
               <h1 className="mb-5 text-5xl font-bold">Let's Explore</h1>
               <p className="mb-5">
                 Welcome to ParkScape, where exploration meets personal
@@ -49,8 +47,10 @@ export function About() {
           {" "}
           <div className="hero-overlay bg-opacity-60"></div>
           <div className="hero-content text-center text-neutral-content">
-            <div className="max-w-md">
-              <h1 className="mb-5 text-5xl font-bold">Discover your Adventure</h1>
+            <div className="max-w-md bg-black bg-opacity-30">
+              <h1 className="mb-5 text-5xl font-bold">
+                Discover your Adventure
+              </h1>
               <p className="mb-5">
                 Our platform is designed to simplify the process of discovering
                 activities that resonate with your unique preferences. We
@@ -83,8 +83,10 @@ export function About() {
         >
           <div className="hero-overlay bg-opacity-60"></div>
           <div className="hero-content text-center text-neutral-content">
-            <div className="max-w-md">
-              <h1 className="mb-5 text-5xl font-bold">The Ultimate Experience</h1>
+            <div className="max-w-md bg-black bg-opacity-30">
+              <h1 className="mb-5 text-5xl font-bold">
+                The Ultimate Experience
+              </h1>
               <p className="mb-5">
                 But it's not just about finding activities. It's about enhancing
                 your experiences. That's why we provide detailed insights, tips,
@@ -117,7 +119,7 @@ export function About() {
         >
           <div className="hero-overlay bg-opacity-60"></div>
           <div className="hero-content text-center text-neutral-content">
-            <div className="max-w-md">
+            <div className="max-w-md bg-black bg-opacity-30">
               <h1 className="mb-5 text-5xl font-bold">Our Mission!</h1>
               <p className="mb-5">
                 Our mission is to inspire and empower you to create
