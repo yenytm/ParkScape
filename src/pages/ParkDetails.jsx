@@ -48,20 +48,31 @@ export default function ParkDetails() {
           {}
           <span>{park.addresses[0].line1}, </span>
           <span>
-            {park.addresses[0].city} 
+            {park.addresses[0].city}
             {park.addresses[0].stateCode}
             {park.addresses[0].postalCode}
           </span>
         </p>
-        <p className="space-y-1">
-          {Object.entries(park.operatingHours.standardHours)
-            .sort((a, b) => dayOrder.indexOf(a[0]) - dayOrder.indexOf(b[0]))
-            .map(([dayName, hours]) => (
-              <span key={dayName} className="block font-semibold">
-                {dayName.charAt(0).toUpperCase() + dayName.slice(1)}: {hours}
-              </span>
-            ))}
-        </p>
+
+        <div className="collapse bg-base-200">
+          <input type="checkbox" />
+          <div className="collapse-title text-md font-md">
+            Hours of Operation{" "}
+          </div>
+          <div className="collapse-content">
+            <p className="space-y-1">
+              {Object.entries(park.operatingHours.standardHours)
+                .sort((a, b) => dayOrder.indexOf(a[0]) - dayOrder.indexOf(b[0]))
+                .map(([dayName, hours]) => (
+                  <span key={dayName} className="block font-semibold">
+                    {dayName.charAt(0).toUpperCase() + dayName.slice(1)}:{" "}
+                    {hours}
+                  </span>
+                ))}
+            </p>
+          </div>
+        </div>
+
         <p>
           <strong> Park Description: </strong>
           {} {park.description}
