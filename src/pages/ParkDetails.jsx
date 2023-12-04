@@ -18,41 +18,76 @@ export const getParkDetails = async ({ params }) => {
 
 export default function ParkDetails() {
   const park = useLoaderData();
+  const dayOrder = [
+    "sunday",
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+  ];
+
   return (
     <div>
       <div className="carousel rounded-box ">
-        <div className="carousel-item w-50 h-[24rem]">
+        <div id="slide1" className="carousel-item w-50 h-[34rem]">
           <img src={park.images[0].url} alt={park.images[0].altText} />
         </div>
-        <div className="carousel-item w-50 h-[24rem]">
+        <div id="slide1" className="carousel-item w-50 h-[34rem]">
           <img src={park.images[1].url} alt={park.images[1].altText} />
         </div>
-        <div className="carousel-item w-50 h-[24rem]">
+        <div id="slide1" className="carousel-item w-50 h-[34rem]">
           <img src={park.images[2].url} alt={park.images[2].altText} />
         </div>
       </div>
       <div>
         <h1 className="card-title">{park.fullName}</h1>
         <p>
-          Location: {}
+          <strong> Location: </strong>
+          {}
           <span>{park.addresses[0].line1}, </span>
           <span>
-            {" "}
-            {park.addresses[0].city} {}
-            {park.addresses[0].stateCode}, {}
+            {park.addresses[0].city}
+            {park.addresses[0].stateCode}
             {park.addresses[0].postalCode}
           </span>
         </p>
-        <p>
-          Operating Hours: {}
-          <span>{park.operatingHours[0].name}, </span>
-        </p>
 
+        <div className="collapse bg-base-200">
+          <input type="checkbox" />
+          <div className="collapse-title text-md font-md">
+            Hours of Operation{" "}
+          </div>
+          <div className="collapse-content">
+            <p className="space-y-1">
+              {Object.entries(park.operatingHours.standardHours)
+                .sort((a, b) => dayOrder.indexOf(a[0]) - dayOrder.indexOf(b[0]))
+                .map(([dayName, hours]) => (
+                  <span key={dayName} className="block font-semibold">
+                    {dayName.charAt(0).toUpperCase() + dayName.slice(1)}:{" "}
+                    {hours}
+                  </span>
+                ))}
+            </p>
+          </div>
+        </div>
 
         <p>
-          Park Description: {} {park.description}
+          <strong> Park Description: </strong>
+          {} {park.description}
         </p>
-        
+        <p>
+          <strong> Activities: </strong>
+          <span>
+            {park.activities.map((activity, name) => (
+              <span key={name}>
+                {activity}
+                {name < park.activities.length - 1 && ", "}
+              </span>
+            ))}
+          </span>
+        </p>
       </div>
     </div>
   );

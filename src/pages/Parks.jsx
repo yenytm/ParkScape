@@ -36,7 +36,8 @@ export function transformParkData(data) {
 		description,
 		latitude,
 		longitude,
-		activities,
+		activities: activities.map((activity)=> activity.name ),
+    
 		topics,
 		state: states,
 		phoneNumbers: contacts.phoneNumbers.map((phone) => phone.phoneNumber),
@@ -50,7 +51,7 @@ export function transformParkData(data) {
 				hours: exception.exceptionHours,
 			})),
 			standardHours: hours.standardHours,
-		})),
+		}))[0],
 		addresses: addresses.map((address) => ({
 			postalCode: address.postalCode,
 			city: address.city,
@@ -84,6 +85,19 @@ export async function getParks() {
 		console.log(error);
 	}
 }
+
+//pagination code
+// function updateContent(parks) {
+// 	const startItem = (currentPage - 1) * itemsPerPage + 1;
+// 	const endItem = startItem + itemsPerPage - 1;
+
+// 	const pageContentDisplay = parks
+// 		.slice(startItem - 1, endItem)
+// 		.join(", ");
+
+// 	const pageDisplay = `${currentPage}/${totalItems / itemsPerPage}`;
+// }
+
 
 export default function Parks() {
 	const parks = useLoaderData();
@@ -127,7 +141,7 @@ export default function Parks() {
 				{filteredParks.length > 0 ? (
 					filteredParks.map((park) => (
 						<li key={park.id}>
-							<div className="card w-96 h-[30rem]  bg-base-100 shadow-xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-120 duration-300 	">
+							<div className="card w-96 h-[32rem]  bg-base-100 shadow-xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-120 duration-300 	">
 								<div className="h-[15rem] w-96 rounded-md overflow-hidden relative">
 									<img
 										className="h-full w-full object-cover"
@@ -150,9 +164,9 @@ export default function Parks() {
 									</span>
 								</div>
 								<div className="card-actions justify-center pb-4">
-									<Link
+									<Link target="_blank"
 										to={`/park/${park.name}/${park.parkCode}`}
-										className="btn bg-green-700 text-white hover:bg-white hover:text-green-700 hover:border-green-700">
+										className="btn bg-green-700 text-white hover:bg-white hover:text-green-700 hover:border-green-700 ">
 										More Info
 									</Link>
 								</div>

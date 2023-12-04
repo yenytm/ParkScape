@@ -55,13 +55,9 @@ export const filterList = (activities) => [
 		label: "State",
 		options: [
 			...statesNames.map((state) => {
-				return { name: state.value };
+				return { name: state.value.toUpperCase() };
 			}),
 		],
 	},
 	{ label: "Activity", options: activities },
-	{
-		label: "Smiles",
-		options: [{ name: "Navia" }, { name: "Yenifer" }],
-	},
 ];
