@@ -51,7 +51,7 @@ export function transformParkData(data) {
 				hours: exception.exceptionHours,
 			})),
 			standardHours: hours.standardHours,
-		})),
+		}))[0],
 		addresses: addresses.map((address) => ({
 			postalCode: address.postalCode,
 			city: address.city,

@@ -18,6 +18,16 @@ export const getParkDetails = async ({ params }) => {
 
 export default function ParkDetails() {
   const park = useLoaderData();
+  const dayOrder = [
+    "sunday",
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+  ];
+
   return (
     <div>
       <div className="carousel rounded-box ">
@@ -38,20 +48,26 @@ export default function ParkDetails() {
           {}
           <span>{park.addresses[0].line1}, </span>
           <span>
-            {" "}
-            {park.addresses[0].city} {}
-            {park.addresses[0].stateCode}, {}
+            {park.addresses[0].city} 
+            {park.addresses[0].stateCode}
             {park.addresses[0].postalCode}
           </span>
+        </p>
+        <p className="space-y-1">
+          {Object.entries(park.operatingHours.standardHours)
+            .sort((a, b) => dayOrder.indexOf(a[0]) - dayOrder.indexOf(b[0]))
+            .map(([dayName, hours]) => (
+              <span key={dayName} className="block font-semibold">
+                {dayName.charAt(0).toUpperCase() + dayName.slice(1)}: {hours}
+              </span>
+            ))}
         </p>
         <p>
           <strong> Park Description: </strong>
           {} {park.description}
         </p>
-
         <p>
           <strong> Activities: </strong>
-          {}
           <span>
             {park.activities.map((activity, name) => (
               <span key={name}>
