@@ -2,10 +2,10 @@ import { AuthContext } from "./context/auth-context";
 import { useContext } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 
-function RequireAuth({ children, reload = false, to = "/auth/login" }) {
+function RequireAuth({ children, to = "/login",
+ }) {
   const { currentUser } = useContext(AuthContext);
   const location = useLocation();
-
 
   if (!currentUser) {
     return (

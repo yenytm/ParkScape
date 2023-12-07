@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
+import Login from "./Login";
 
 export function Navbar() {
-	return (
+  return (
     <>
       <div className="navbar bg-base-100 sticky top-0 z-50">
         <div className="navbar-start">
@@ -95,7 +96,7 @@ export function Navbar() {
                   placeholder="Type here"
                   className="input input-bordered input-accent w-full max-w-xs"
                 />
-                <p >Username</p>
+                <p>Username</p>
               </p>
 
               <input
@@ -112,6 +113,7 @@ export function Navbar() {
               </div>
             </div>
           </dialog>
+          <button type="submit">Sign Out</button>
         </div>
       </div>
     </>
