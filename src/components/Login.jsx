@@ -1,61 +1,76 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { signInUser } from "../utils/context/firebase";
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { signInUser } from '../utils/context/firebase'
+import { useContext } from 'react'
+import { AuthContext } from '../utils/context/auth-context'
 
 export default function Login() {
-  const [formFields, setFormFields] = useState({
-    email: "",
-    password: "",
-  });
+    const [formFields, setFormFields] = useState({
+        email: '',
+        password: '',
+    })
 
-  const { email, password } = formFields;
+    const { currentUser } = useContext(AuthContext)
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormFields((prev) => ({ ...prev, [name]: value }));
-  };
+    const { email, password } = formFields
 
-  useEffect(() => {
-    console.log(formFields);
-  }, [formFields]);
-
-  const navigate = useNavigate();
-   const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    try {
-      const userCredentials = await signInUser(email, password);
-      if (userCredentials) {
-        setFormFields({ email: " ", password: "" });
-        navigate("/private");
-      }
-    } catch (error) {
-      console.log("Error signing in user:", error.message);
+    const handleChange = (event) => {
+        const { name, value } = event.target
+        setFormFields((prev) => ({ ...prev, [name]: value }))
     }
-  };
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <input
-        className="input input-bordered input-success "
-        type="email"
-        name="email"
-        placeholder="user@email.com"
-        value={email}
-        onChange={handleChange}
-      />
+    const resetFormFields = () => {
+        return setFormFields({
+            email: '',
+            password: '',
+        })
+    }
 
-      <input
-        //   className="input input-bordered input-success w-full max-w-xs"
-        className=" input input-bordered input-success "
-        type="password"
-        name="password"
-        value={password}
-        onChange={handleChange}
-      />
-      <button className="input input-bordered input-success " type="submit">
-        Submit
-      </button>
-    </form>
-  );
+    useEffect(() => {
+        console.log('currentUser:', currentUser)
+    }, [currentUser])
+
+    const navigate = useNavigate()
+    const handleSubmit = async (event) => {
+        event.preventDefault()
+
+        try {
+            const userCredentials = await signInUser(email, password)
+            if (userCredentials) {
+                resetFormFields()
+                navigate('/private')
+            }
+        } catch (error) {
+            console.log('Error signing in user:', error.message)
+        }
+    }
+
+    return (
+        <div className="grid place-items-center h-screen">
+            <form onSubmit={handleSubmit}>
+                <input
+                    className="input input-bordered input-success "
+                    type="email"
+                    name="email"
+                    placeholder="user@email.com"
+                    value={email}
+                    onChange={handleChange}
+                />
+                <input
+                    //   className="input input-bordered input-success w-full max-w-xs"
+                    className=" input input-bordered input-success "
+                    type="password"
+                    name="password"
+                    value={password}
+                    onChange={handleChange}
+                />
+                <button
+                    className="input input-bordered input-success "
+                    type="submit"
+                >
+                    Submit
+                </button>
+            </form>
+        </div>
+    )
 }
