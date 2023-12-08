@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom/client'
 import Root from './components/Root.jsx'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
@@ -13,72 +13,78 @@ import ParkDetails, { getParkDetails } from './pages/ParkDetails.jsx'
 import PrivateRoot from './PrivateRoot.jsx'
 import RequireAuth from './utils/require-auth.jsx'
 import { AuthProvider } from './utils/context/auth-context.jsx'
+import Login from './components/Login.jsx'
 
-const withAuthProvider = (
-  Component,
-  requireAuth = false,) => {
+const withAuthProvider = (Component, requireAuth = false) => {
     return (
-    <AuthProvider>
-    {requireAuth ? (
-      <RequireAuth>
-        <Component/>
-      </RequireAuth>
-    ): (
-      <Component/>
-    )}
-    </AuthProvider>
+        <AuthProvider>
+            {requireAuth ? (
+                <RequireAuth>
+                    <Component />
+                </RequireAuth>
+            ) : (
+                <Component />
+            )}
+        </AuthProvider>
     )
-  };
+}
 
-const router = createBrowserRouter ([
-  {
-    path: "/",
-    element: <Root />,
-    children: [
-      {
-        path:"/",
-        element: <Hero />,
-      },
-      {
-        path:"/about",
-        element: <About/>,
-      },
-      {
-        path:"/regions",
-        element: <Regions/>,
-      },
-      {
-        path:"/parks",
-        element: <Parks />,
-        loader: getParks
-      },
-      {
-        path:"/park/:name/:code",
-        element: <ParkDetails />,
-        loader: getParkDetails
-      },
-      {
-        path:"/states",
-        element: <States/>,
-      },
-      {
-        path:"state/florida",
-        element: <Florida/>,
-      },
-       
-    ]
-  },
-  {
-     path: "/private",
+const router = createBrowserRouter([
+    {
+        path: '/',
+        element: withAuthProvider(Root),
+        children: [
+            {
+                path: '/',
+                element: <Hero />,
+            },
+            {
+                path: '/about',
+                element: <About />,
+            },
+            {
+                path: '/regions',
+                element: <Regions />,
+            },
+            {
+                path: '/parks',
+                element: <Parks />,
+                loader: getParks,
+            },
+            {
+                path: '/park/:name/:code',
+                element: <ParkDetails />,
+                loader: getParkDetails,
+            },
+            {
+                path: '/states',
+                element: <States />,
+            },
+            {
+                path: 'state/florida',
+                element: <Florida />,
+            },
+        ],
+    },
+    {
+        path: '/login',
+        element: withAuthProvider(Login),
+    },
+
+    {
+        path: '/private',
         element: withAuthProvider(PrivateRoot, true),
-    } 
-  
+        children: [
+            {
+                path: "/private",
+                element: <Hero />,
+            },
+        ],
+    },
 ])
 
-
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <RouterProvider router = {router} />
-
-  </React.StrictMode>,
+    <React.StrictMode>
+        <RouterProvider router={router} />
+    </React.StrictMode>,
 )
