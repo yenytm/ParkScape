@@ -35,12 +35,6 @@ export function Navbar() {
                                 <a>Explore</a>
                                 <ul className="p-2">
                                     <li>
-                                        <Link to="/regions">Regions</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/states">States</Link>
-                                    </li>
-                                    <li>
                                         <Link to="/parks">Parks</Link>
                                     </li>
                                 </ul>
@@ -72,12 +66,6 @@ export function Navbar() {
                                     Explore
                                 </div>
                                 <ul className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box">
-                                    <li>
-                                        <Link to="/regions">Regions</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/states">States</Link>
-                                    </li>
                                     <li>
                                         <Link to="/parks">Parks</Link>
                                     </li>

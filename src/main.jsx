@@ -4,16 +4,14 @@ import Root from './components/Root.jsx'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { About } from './pages/About.jsx'
 import './index.css'
-import Regions from './pages/Regions.jsx'
-import States from './pages/States.jsx'
 import { Hero } from './components/hero/Hero.jsx'
-import Florida from './pages/Florida.jsx'
 import Parks, { getParks } from './pages/Parks.jsx'
-import ParkDetails, { getParkDetails } from './pages/ParkDetails.jsx'
+import ParkDetails from './pages/ParkDetails.jsx'
 import PrivateRoot from './PrivateRoot.jsx'
 import RequireAuth from './utils/require-auth.jsx'
 import { AuthProvider } from './utils/context/auth-context.jsx'
 import Login from './components/Login.jsx'
+import { getParkDetails } from './utils/loaders.js'
 
 const withAuthProvider = (Component, requireAuth = false) => {
     return (
@@ -42,10 +40,7 @@ const router = createBrowserRouter([
                 path: '/about',
                 element: <About />,
             },
-            {
-                path: '/regions',
-                element: <Regions />,
-            },
+
             {
                 path: '/parks',
                 element: <Parks />,
@@ -55,14 +50,6 @@ const router = createBrowserRouter([
                 path: '/park/:name/:code',
                 element: <ParkDetails />,
                 loader: getParkDetails,
-            },
-            {
-                path: '/states',
-                element: <States />,
-            },
-            {
-                path: 'state/florida',
-                element: <Florida />,
             },
         ],
     },
@@ -74,12 +61,6 @@ const router = createBrowserRouter([
     {
         path: '/private',
         element: withAuthProvider(PrivateRoot, true),
-        children: [
-            {
-                path: "/private",
-                element: <Hero />,
-            },
-        ],
     },
 ])
 
