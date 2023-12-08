@@ -74,6 +74,12 @@ const router = createBrowserRouter([
     {
         path: '/private',
         element: withAuthProvider(PrivateRoot, true),
+        children: [
+            {
+                path: "/private",
+                element: <Hero />,
+            },
+        ],
     },
 ])
 
