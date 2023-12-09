@@ -7,7 +7,6 @@ import './index.css'
 import { Hero } from './components/hero/Hero.jsx'
 import Parks, { getParks } from './pages/Parks.jsx'
 import ParkDetails from './pages/ParkDetails.jsx'
-import PrivateRoot from './PrivateRoot.jsx'
 import RequireAuth from './utils/require-auth.jsx'
 import { AuthProvider } from './utils/context/auth-context.jsx'
 import Login from './components/Login.jsx'
@@ -56,11 +55,6 @@ const router = createBrowserRouter([
     {
         path: '/login',
         element: withAuthProvider(Login),
-    },
-
-    {
-        path: '/private',
-        element: withAuthProvider(PrivateRoot, true),
     },
 ])
 
