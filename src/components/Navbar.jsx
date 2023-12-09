@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom'
+import Login from './Login'
+import { useContext } from 'react'
+import { AuthContext } from '../utils/context/auth-context'
+import { SignOutUser } from '../utils/context/firebase'
 // import Login from "./Login";
 
 export function Navbar() {
+    const { currentUser } = useContext(AuthContext)
+
     return (
         <>
             <div className="navbar bg-base-100 sticky top-0 z-50">
@@ -79,44 +85,11 @@ export function Navbar() {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    {/* Open the modal using document.getElementById('ID').showModal() method */}
-                    <button
-                        className="btn"
-                        onClick={() =>
-                            document.getElementById('my_modal_1').showModal()
-                        }
-                    >
-                        Sign In
-                    </button>
-                    <dialog id="my_modal_1" className="modal">
-                        <div className="modal-box">
-                            <h3 className="font-bold text-lg">
-                                Sign in to your account
-                            </h3>
-                            <p className="py-4">
-                                <input
-                                    type="text"
-                                    placeholder="Type here"
-                                    className="input input-bordered input-accent w-full max-w-xs"
-                                />
-                                <p>Username</p>
-                            </p>
-
-                            <input
-                                type="text"
-                                placeholder="Type here"
-                                className="input input-bordered input-accent w-full max-w-xs"
-                            />
-                            <p>Password</p>
-                            <div className="modal-action">
-                                <form method="dialog">
-                                    {/* if there is a button in form, it will close the modal */}
-                                    <button className="btn">Sign In</button>
-                                </form>
-                            </div>
-                        </div>
-                    </dialog>
-                    <button type="submit">Sign Out</button>
+                    {!currentUser ? (
+                        <Login />
+                    ) : (
+                        <button onClick={() => SignOutUser()}>Sign Out</button>
+                    )}
                 </div>
             </div>
         </>

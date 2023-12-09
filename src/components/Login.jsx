@@ -38,7 +38,7 @@ export default function Login() {
             const userCredentials = await signInUser(email, password)
             if (userCredentials) {
                 resetFormFields()
-                navigate('/private')
+                navigate('/')
             }
         } catch (error) {
             console.log('Error signing in user:', error.message)
@@ -46,31 +46,56 @@ export default function Login() {
     }
 
     return (
-        <div className="grid place-items-center h-screen">
-            <form onSubmit={handleSubmit}>
-                <input
-                    className="input input-bordered input-success "
-                    type="email"
-                    name="email"
-                    placeholder="user@email.com"
-                    value={email}
-                    onChange={handleChange}
-                />
-                <input
-                    //   className="input input-bordered input-success w-full max-w-xs"
-                    className=" input input-bordered input-success "
-                    type="password"
-                    name="password"
-                    value={password}
-                    onChange={handleChange}
-                />
-                <button
-                    className="input input-bordered input-success "
-                    type="submit"
-                >
-                    Submit
-                </button>
-            </form>
-        </div>
+        <>
+            {/* Open the modal using document.getElementById('ID').showModal() method */}
+            <button
+                className="btn"
+                onClick={() =>
+                    document.getElementById('my_modal_1').showModal()
+                }
+            >
+                Sign In
+            </button>
+            <dialog id="my_modal_1" className="modal">
+                <div className="modal-box">
+                    <h3 className="font-bold text-lg">
+                        Sign in to your account
+                    </h3>
+                    <form method="dialog" onSubmit={handleSubmit}>
+                        <label htmlFor='email' className="py-4">
+                            <input
+                                type="text"
+                                id="email"
+                                name="email"
+                                value={email}
+                                onChange={handleChange}
+                                placeholder="email"
+                                className="input input-bordered input-accent w-full max-w-xs"
+                            />
+                            Email
+                        </label>
+                        <label htmlFor='password' className="py-4">
+                            <input
+                                id="password"
+                                name="password"
+                                value={password}
+                                type="password"
+                                onChange={handleChange}
+                                placeholder="***********"
+                                className="input input-bordered input-accent w-full max-w-xs"
+                            />
+                            Password
+                        </label>
+
+                        <div className="modal-action">
+                            {/* if there is a button in form, it will close the modal */}
+                            <button type="submit" className="btn">
+                                Sign In
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </dialog>
+        </>
     )
 }
