@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import ParkFilter from '../components/ParkFilter'
 import { filterList } from '../data'
 
+
 const api_key = import.meta.env.VITE_NPS_KEY
 const url = `https://developer.nps.gov/api/v1/parks?API_KEY=${api_key}`
 
@@ -113,13 +114,17 @@ export default function Parks() {
     }, [activities, parks])
 
     useEffect(() => {
-        const searchLower = searchTerm.toLowerCase()
+        const searchLower = searchTerm.toLowerCase();
         setFilteredParks(
             parks.filter((park) =>
-                park.fullName.toLowerCase().includes(searchLower),
-            ),
-        )
-    }, [searchTerm, parks])
+                park.fullName.toLowerCase().includes(searchLower) &&
+                (activities.length === 0 || park.activities.some(activity => activities.includes(activity)))
+            )
+        );
+    }, [searchTerm, parks, activities]);
+    
+
+
 
     return (
         <>
@@ -127,6 +132,7 @@ export default function Parks() {
                 <ParkFilter
                     searchTerm={searchTerm}
                     setSearchTerm={setSearchTerm}
+                    setActivities={setActivities}
                     filterList={filterList([
                         ...new Map(
                             filteredParks

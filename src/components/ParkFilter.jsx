@@ -4,7 +4,6 @@ import { useEffect } from 'react'
 export default function ParkFilter({
     searchTerm,
     setSearchTerm,
-
     filterList,
 }) {
     useEffect(() => {
@@ -28,6 +27,7 @@ export default function ParkFilter({
                         <select
                             className="select select-bordered join-item"
                             key={filter.label}
+                            onChange={() => setAc}
                         >
                             <option disabled selected>
                                 {filter.label}
