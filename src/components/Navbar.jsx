@@ -11,7 +11,7 @@ export function Navbar() {
 
     useEffect(() => {
         console.log(currentUser)
-    } , [currentUser])
+    }, [currentUser])
     return (
         <>
             <div className="navbar bg-base-100 sticky top-0 z-50">

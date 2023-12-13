@@ -50,9 +50,7 @@ export const statesNames = [
     { label: 'Wyoming', value: 'wyoming' },
 ]
 
-export const activityName = [
-    { label: 'Stargazing', value: 'Stargazing' },
-]
+export const activityName = [{ label: 'Stargazing', value: 'Stargazing' }]
 
 export const filterList = (activities) => [
     {
@@ -63,11 +61,12 @@ export const filterList = (activities) => [
             }),
         ],
     },
-    { label: 'Activity', options: [
-        ...activityName.map((activity)=> {
-            return {name: activity.value}
-        })
-    ] },
+    {
+        label: 'Activity',
+        options: [
+            ...activityName.map((activity) => {
+                return { name: activity.value }
+            }),
+        ],
+    },
 ]
-
-

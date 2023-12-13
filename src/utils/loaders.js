@@ -14,7 +14,6 @@ export async function getParks(page = 0, limit = 24) {
     }
 }
 
-
 export const getParkDetails = async ({ params }) => {
     try {
         const response = await fetch(url + `&parkCode=${params.code}`)

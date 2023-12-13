@@ -57,13 +57,11 @@ const router = createBrowserRouter([
         element: withAuthProvider(AuthRoot, true),
         children: [
             {
-                path: "private",
-                element: <AuthRoot />
-            }
-        ]
-        
-
-    }
+                path: 'private',
+                element: <AuthRoot />,
+            },
+        ],
+    },
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(

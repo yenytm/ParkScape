@@ -62,7 +62,7 @@ export default function Login() {
                         Sign in to your account
                     </h3>
                     <form method="dialog" onSubmit={handleSubmit}>
-                        <label htmlFor='email' className="py-4">
+                        <label htmlFor="email" className="py-4">
                             <input
                                 type="text"
                                 id="email"
@@ -74,7 +74,7 @@ export default function Login() {
                             />
                             Email
                         </label>
-                        <label htmlFor='password' className="py-4">
+                        <label htmlFor="password" className="py-4">
                             <input
                                 id="password"
                                 name="password"
