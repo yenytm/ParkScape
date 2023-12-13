@@ -86,40 +86,56 @@ export async function getParks() {
     }
 }
 
-//pagination code
-// function updateContent(parks) {
-// 	const startItem = (currentPage - 1) * itemsPerPage + 1;
-// 	const endItem = startItem + itemsPerPage - 1;
-
-// 	const pageContentDisplay = parks
-// 		.slice(startItem - 1, endItem)
-// 		.join(", ");
-
-// 	const pageDisplay = `${currentPage}/${totalItems / itemsPerPage}`;
-// }
-
 export default function Parks() {
     const parks = useLoaderData()
     const [filteredParks, setFilteredParks] = useState(parks)
     const [searchTerm, setSearchTerm] = useState('')
     const [activities, setActivities] = useState([])
 
-    useEffect(() => {
-        const filterParks = activities.length
-            ? getParksByActivities
-            : () => Promise.resolve(parks)
-        filterParks(activities).then(setFilteredParks)
-        console.log(filterParks)
-    }, [activities, parks])
+    // Pagination constants
+    const itemsPerPage = 24
+    const [currentPage, setCurrentPage] = useState(1)
+
+    // total number of pages
+    const totalPages = Math.ceil(filteredParks.length / itemsPerPage)
+
+    // Function to get parks for current page
+    const getCurrentPageParks = () => {
+        const startIndex = (currentPage - 1) * itemsPerPage
+        const endIndex = startIndex + itemsPerPage
+        return filteredParks.slice(startIndex, endIndex)
+    }
 
     useEffect(() => {
-        const searchLower = searchTerm.toLowerCase()
-        setFilteredParks(
-            parks.filter((park) =>
-                park.fullName.toLowerCase().includes(searchLower),
-            ),
+        const filtered = parks.filter(
+            (park) =>
+                park.fullName
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase()) &&
+                (activities.length === 0 ||
+                    park.activities.some((activity) =>
+                        activities.includes(activity),
+                    )),
         )
-    }, [searchTerm, parks])
+        setFilteredParks(filtered)
+    }, [searchTerm, parks, activities])
+
+    //next page
+    const nextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1)
+        }
+    }
+
+    // previous page
+    const prevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1)
+        }
+    }
+
+    //  current page
+    const currentParks = getCurrentPageParks()
 
     return (
         <>
@@ -127,6 +143,7 @@ export default function Parks() {
                 <ParkFilter
                     searchTerm={searchTerm}
                     setSearchTerm={setSearchTerm}
+                    setActivities={setActivities}
                     filterList={filterList([
                         ...new Map(
                             filteredParks
@@ -136,9 +153,27 @@ export default function Parks() {
                     ])}
                 />
             </div>
+            <div id='paginationBtns' className="join flex flex-wrap justify-center my-4">
+                <button
+                    className="join-item btn"
+                    onClick={prevPage}
+                    disabled={currentPage === 1}
+                >
+                    «
+                </button>
+                <button className="join-item btn">{`Page ${currentPage} of ${totalPages}`}</button>
+                <button
+                    className="join-item btn"
+                    onClick={nextPage}
+                    disabled={currentPage === totalPages}
+                >
+                    »
+                </button>
+            </div>
+
             <ul className="flex gap-4 flex-wrap  justify-center">
-                {filteredParks.length > 0 ? (
-                    filteredParks.map((park) => (
+                {currentParks.length > 0 ? (
+                    currentParks.map((park) => (
                         <li key={park.id}>
                             <div className="card w-96 h-[32rem]  bg-base-100 shadow-xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-120 duration-300 	">
                                 <div className="h-[15rem] w-96 rounded-md overflow-hidden relative">
@@ -178,6 +213,24 @@ export default function Parks() {
                     <h1>No Parks Found</h1>
                 )}
             </ul>
+            <div id='paginationBtns' className="join flex flex-wrap justify-center my-4">
+                <button
+                    className="join-item btn"
+                    onClick={prevPage}
+                    disabled={currentPage === 1}
+                >
+                    «
+                </button>
+                <button className="join-item btn">{`Page ${currentPage} of ${totalPages}`}</button>
+                <button
+                    className="join-item btn"
+                    onClick={nextPage}
+                    disabled={currentPage === totalPages}
+                >
+                    »
+                </button>
+            </div>
+
         </>
     )
 }

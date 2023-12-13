@@ -49,7 +49,7 @@ export default function Login() {
         <>
             {/* Open the modal using document.getElementById('ID').showModal() method */}
             <button
-                className="btn"
+                className="btn text-black hover:bg-white hover:text-green-700 hover:border-green-700"
                 onClick={() =>
                     document.getElementById('my_modal_1').showModal()
                 }
