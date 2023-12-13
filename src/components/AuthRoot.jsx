@@ -1,18 +1,11 @@
-import React from 'react'
 import { Footer } from './Footer'
-import { AuthNav } from './authNav'
-
-
+import { Navbar } from './Navbar'
 
 export default function authRoot() {
-  return (
+    return (
         <>
-
-        <AuthNav />
-        <Footer />
-
-
+            <Navbar />
+            <Footer />
         </>
-
     )
 }
