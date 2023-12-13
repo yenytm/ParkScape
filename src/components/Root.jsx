@@ -7,7 +7,9 @@ export default function Root() {
     return (
         <>
             <Navbar />
-            <Outlet />
+            <main className='pb-10'>
+                <Outlet />
+            </main>
             <Footer />
         </>
     )
