@@ -1,12 +1,10 @@
 /* eslint-disable react-refresh/only-export-components */
 import { useLoaderData, Link } from 'react-router-dom'
-import { getParksByActivities } from './Activities'
+// import { getParksByActivities } from './Activities'
 import { useEffect, useState } from 'react'
 import ParkFilter from '../components/ParkFilter'
 import { filterList } from '../data'
-
-const api_key = import.meta.env.VITE_NPS_KEY
-const url = `https://developer.nps.gov/api/v1/parks?API_KEY=${api_key}`
+import { getParks } from '../utils/loaders'
 
 export function transformParkData(data) {
     const {
@@ -74,37 +72,24 @@ export function transformParkData(data) {
     }
 }
 
-export async function getParks() {
-    try {
-        const response = await fetch(url)
-        const data = await response.json()
-        const cleanData = data.data.map(transformParkData)
-        console.log(cleanData)
-        return cleanData
-    } catch (error) {
-        console.log(error)
-    }
-}
-
 export default function Parks() {
-    const parks = useLoaderData()
+    const [parks, total] = useLoaderData()
     const [filteredParks, setFilteredParks] = useState(parks)
     const [searchTerm, setSearchTerm] = useState('')
     const [activities, setActivities] = useState([])
 
     // Pagination constants
-    const itemsPerPage = 24
+    const [totalPages, setTotalPages] = useState(total)
     const [currentPage, setCurrentPage] = useState(1)
 
-    // total number of pages
-    const totalPages = Math.ceil(filteredParks.length / itemsPerPage)
-
-    // Function to get parks for current page
-    const getCurrentPageParks = () => {
-        const startIndex = (currentPage - 1) * itemsPerPage
-        const endIndex = startIndex + itemsPerPage
-        return filteredParks.slice(startIndex, endIndex)
-    }
+    useEffect(() => {
+        const nextPage = async () => {
+            const [parks, total] = await getParks(currentPage)
+            setTotalPages(total)
+            setFilteredParks(parks)
+        }
+        nextPage()
+    }, [currentPage])
 
     useEffect(() => {
         const filtered = parks.filter(
@@ -119,23 +104,6 @@ export default function Parks() {
         )
         setFilteredParks(filtered)
     }, [searchTerm, parks, activities])
-
-    //next page
-    const nextPage = () => {
-        if (currentPage < totalPages) {
-            setCurrentPage(currentPage + 1)
-        }
-    }
-
-    // previous page
-    const prevPage = () => {
-        if (currentPage > 1) {
-            setCurrentPage(currentPage - 1)
-        }
-    }
-
-    //  current page
-    const currentParks = getCurrentPageParks()
 
     return (
         <>
@@ -153,10 +121,13 @@ export default function Parks() {
                     ])}
                 />
             </div>
-            <div id='paginationBtns' className="join flex flex-wrap justify-center my-4">
+            <div
+                id="paginationBtns"
+                className="join flex flex-wrap justify-center my-4"
+            >
                 <button
                     className="join-item btn"
-                    onClick={prevPage}
+                    onClick={() => setCurrentPage(currentPage - 1)}
                     disabled={currentPage === 1}
                 >
                     «
@@ -164,7 +135,7 @@ export default function Parks() {
                 <button className="join-item btn">{`Page ${currentPage} of ${totalPages}`}</button>
                 <button
                     className="join-item btn"
-                    onClick={nextPage}
+                    onClick={() => setCurrentPage(currentPage + 1)}
                     disabled={currentPage === totalPages}
                 >
                     »
@@ -172,8 +143,8 @@ export default function Parks() {
             </div>
 
             <ul className="flex gap-4 flex-wrap  justify-center">
-                {currentParks.length > 0 ? (
-                    currentParks.map((park) => (
+                {filteredParks.length > 0 ? (
+                    filteredParks.map((park) => (
                         <li key={park.id}>
                             <div className="card w-96 h-[32rem]  bg-base-100 shadow-xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-120 duration-300 	">
                                 <div className="h-[15rem] w-96 rounded-md overflow-hidden relative">
@@ -213,10 +184,13 @@ export default function Parks() {
                     <h1>No Parks Found</h1>
                 )}
             </ul>
-            <div id='paginationBtns' className="join flex flex-wrap justify-center my-4">
+            <div
+                id="paginationBtns"
+                className="join flex flex-wrap justify-center my-4"
+            >
                 <button
                     className="join-item btn"
-                    onClick={prevPage}
+                    onClick={() => setCurrentPage(currentPage - 1)}
                     disabled={currentPage === 1}
                 >
                     «
@@ -224,13 +198,12 @@ export default function Parks() {
                 <button className="join-item btn">{`Page ${currentPage} of ${totalPages}`}</button>
                 <button
                     className="join-item btn"
-                    onClick={nextPage}
+                    onClick={() => setCurrentPage(currentPage + 1)}
                     disabled={currentPage === totalPages}
                 >
                     »
                 </button>
             </div>
-
         </>
     )
 }
