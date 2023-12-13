@@ -5,7 +5,7 @@ const url = `https://developer.nps.gov/api/v1/parks?API_KEY=${api_key}`
 
 export async function getParks(page = 0, limit = 24) {
     try {
-        const response = await fetch(`${url}?start=${page}&limit=${limit}`)
+        const response = await fetch(`${url}&start=${page}&limit=${limit}`)
         const data = await response.json()
         const cleanData = data.data.map(transformParkData)
         return [cleanData, data.total]
