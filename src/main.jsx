@@ -5,11 +5,12 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { About } from './pages/About.jsx'
 import './index.css'
 import { Hero } from './components/hero/Hero.jsx'
-import Parks from './pages/Parks.jsx'
+import Parks, { getParks } from './pages/Parks.jsx'
 import ParkDetails from './pages/ParkDetails.jsx'
 import RequireAuth from './utils/require-auth.jsx'
 import { AuthProvider } from './utils/context/auth-context.jsx'
-import { getParkDetails, getParks } from './utils/loaders.js'
+import Login from './components/Login.jsx'
+import { getParkDetails } from './utils/loaders.js'
 import AuthRoot from './components/AuthRoot.jsx'
 
 const withAuthProvider = (Component, requireAuth = false) => {
@@ -53,11 +54,15 @@ const router = createBrowserRouter([
         ],
     },
     {
+        path: '/login',
+        element: withAuthProvider(Login),
+    },
+    {
         path: '/private',
         element: withAuthProvider(AuthRoot, true),
         children: [
             {
-                path: "private",
+                path: "/",
                 element: <AuthRoot />
             }
         ]

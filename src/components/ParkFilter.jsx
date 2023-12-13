@@ -1,5 +1,14 @@
+import { useEffect } from 'react'
+
 /* eslint-disable react/prop-types */
-export default function ParkFilter({ searchTerm, setSearchTerm, filterList }) {
+export default function ParkFilter({
+    searchTerm,
+    setSearchTerm,
+    filterList,
+}) {
+    useEffect(() => {
+        console.log(filterList)
+    }, [filterList])
     return (
         <>
             <div className="join my-4 mx-auto">
@@ -18,8 +27,9 @@ export default function ParkFilter({ searchTerm, setSearchTerm, filterList }) {
                         <select
                             className="select select-bordered join-item"
                             key={filter.label}
+                            onChange={() => setAc}
                         >
-                            <option disabled defaultValue>
+                            <option disabled selected>
                                 {filter.label}
                             </option>
                             {filter.options.map((option) => (
