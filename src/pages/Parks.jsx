@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react'
 import ParkFilter from '../components/ParkFilter'
 import { filterList } from '../data'
 
-
 const api_key = import.meta.env.VITE_NPS_KEY
 const url = `https://developer.nps.gov/api/v1/parks?API_KEY=${api_key}`
 
@@ -87,60 +86,59 @@ export async function getParks() {
     }
 }
 
-
 export default function Parks() {
     const parks = useLoaderData()
     const [filteredParks, setFilteredParks] = useState(parks)
     const [searchTerm, setSearchTerm] = useState('')
     const [activities, setActivities] = useState([])
 
-// Pagination constants
-const itemsPerPage = 24;
-const [currentPage, setCurrentPage] = useState(1);
+    // Pagination constants
+    const itemsPerPage = 24
+    const [currentPage, setCurrentPage] = useState(1)
 
-// total number of pages
-const totalPages = Math.ceil(filteredParks.length / itemsPerPage);
+    // total number of pages
+    const totalPages = Math.ceil(filteredParks.length / itemsPerPage)
 
-// Function to get parks for current page
-const getCurrentPageParks = () => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    return filteredParks.slice(startIndex, endIndex);
-};
-
-useEffect(() => {
-    
-    const filtered = parks.filter((park) =>
-        park.fullName.toLowerCase().includes(searchTerm.toLowerCase()) &&
-        (activities.length === 0 || park.activities.some(activity => activities.includes(activity)))
-    );
-    setFilteredParks(filtered);
-}, [searchTerm, parks, activities]);
-
-
-//next page
-const nextPage = () => {
-    if (currentPage < totalPages) {
-        setCurrentPage(currentPage + 1);
+    // Function to get parks for current page
+    const getCurrentPageParks = () => {
+        const startIndex = (currentPage - 1) * itemsPerPage
+        const endIndex = startIndex + itemsPerPage
+        return filteredParks.slice(startIndex, endIndex)
     }
-};
 
-// previous page
-const prevPage = () => {
-    if (currentPage > 1) {
-        setCurrentPage(currentPage - 1);
+    useEffect(() => {
+        const filtered = parks.filter(
+            (park) =>
+                park.fullName
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase()) &&
+                (activities.length === 0 ||
+                    park.activities.some((activity) =>
+                        activities.includes(activity),
+                    )),
+        )
+        setFilteredParks(filtered)
+    }, [searchTerm, parks, activities])
+
+    //next page
+    const nextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1)
+        }
     }
-};
 
-//  current page
-const currentParks = getCurrentPageParks();
+    // previous page
+    const prevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1)
+        }
+    }
 
-
-
+    //  current page
+    const currentParks = getCurrentPageParks()
 
     return (
         <>
-        
             <div className="w-full flex justify-center">
                 <ParkFilter
                     searchTerm={searchTerm}
@@ -155,15 +153,28 @@ const currentParks = getCurrentPageParks();
                     ])}
                 />
             </div>
-            <div className="pagination flex-auto m-0">
-                <button className='border-2 border-slate-950' onClick={prevPage} disabled={currentPage === 1}> Previous </button>
-                <span>{`Page ${currentPage} of ${totalPages}`}</span>
-                <button className='border-2 border-slate-950' onClick={nextPage} disabled={currentPage === totalPages}>Next</button>
+            <div id='paginationBtns' className="join flex flex-wrap justify-center my-4">
+                <button
+                    className="join-item btn"
+                    onClick={prevPage}
+                    disabled={currentPage === 1}
+                >
+                    «
+                </button>
+                <button className="join-item btn">{`Page ${currentPage} of ${totalPages}`}</button>
+                <button
+                    className="join-item btn"
+                    onClick={nextPage}
+                    disabled={currentPage === totalPages}
+                >
+                    »
+                </button>
             </div>
 
             <ul className="flex gap-4 flex-wrap  justify-center">
-            {currentParks.length > 0 ? (
-                    currentParks.map((park) => (                        <li key={park.id}>
+                {currentParks.length > 0 ? (
+                    currentParks.map((park) => (
+                        <li key={park.id}>
                             <div className="card w-96 h-[32rem]  bg-base-100 shadow-xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-120 duration-300 	">
                                 <div className="h-[15rem] w-96 rounded-md overflow-hidden relative">
                                     <img
@@ -202,6 +213,23 @@ const currentParks = getCurrentPageParks();
                     <h1>No Parks Found</h1>
                 )}
             </ul>
+            <div id='paginationBtns' className="join flex flex-wrap justify-center my-4">
+                <button
+                    className="join-item btn"
+                    onClick={prevPage}
+                    disabled={currentPage === 1}
+                >
+                    «
+                </button>
+                <button className="join-item btn">{`Page ${currentPage} of ${totalPages}`}</button>
+                <button
+                    className="join-item btn"
+                    onClick={nextPage}
+                    disabled={currentPage === totalPages}
+                >
+                    »
+                </button>
+            </div>
 
         </>
     )
