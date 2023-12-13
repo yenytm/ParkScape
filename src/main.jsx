@@ -11,6 +11,7 @@ import RequireAuth from './utils/require-auth.jsx'
 import { AuthProvider } from './utils/context/auth-context.jsx'
 import Login from './components/Login.jsx'
 import { getParkDetails } from './utils/loaders.js'
+import AuthRoot from './components/AuthRoot.jsx'
 
 const withAuthProvider = (Component, requireAuth = false) => {
     return (
@@ -56,6 +57,18 @@ const router = createBrowserRouter([
         path: '/login',
         element: withAuthProvider(Login),
     },
+    {
+        path: '/private',
+        element: withAuthProvider(AuthRoot, true),
+        children: [
+            {
+                path: "/",
+                element: <AuthRoot />
+            }
+        ]
+        
+
+    }
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
