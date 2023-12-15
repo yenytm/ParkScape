@@ -54,7 +54,7 @@ export function Navbar() {
                         className="hover:scale-110 transition-all duration-300"
                     >
                         <img
-                            className="LogoPic h-12 w-20"
+                            className="LogoPic h-15 w-20"
                             src="ParkScapeLogo.png"
                             alt=""
                         />
