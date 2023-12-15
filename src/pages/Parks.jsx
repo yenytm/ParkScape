@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import { useLoaderData, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 // import { getParksByActivities } from './Activities'
 import { useEffect, useState } from 'react'
 import ParkFilter from '../components/ParkFilter'
@@ -9,7 +9,7 @@ import { getParks } from '../utils/loaders'
 export function transformParkData(data) {
     const {
         id,
-        url,
+        url = 'https://images.placeholders.dev/?width=240&height=384',
         fullName,
         parkCode,
         description,
@@ -34,7 +34,9 @@ export function transformParkData(data) {
         description,
         latitude,
         longitude,
-        activities: activities.map((activity) => activity.name),
+        activities: activities.map((activity) => {
+            return { label: activity.name, value: activity.id }
+        }),
 
         topics,
         state: states,
@@ -66,44 +68,55 @@ export function transformParkData(data) {
             title: image.title,
             altText: image.altText,
             caption: image.caption,
-            url: image.url,
+            url:
+                image.url ||
+                'https://images.placeholders.dev/?width=240&height=384',
         })),
         name,
     }
 }
 
 export default function Parks() {
-    const [parks, total] = useLoaderData()
-    const [filteredParks, setFilteredParks] = useState(parks)
+    const [filteredParks, setFilteredParks] = useState([])
+
+    // filter constants
     const [searchTerm, setSearchTerm] = useState('')
+    const [state, setState] = useState()
     const [activities, setActivities] = useState([])
 
     // Pagination constants
-    const [totalPages, setTotalPages] = useState(total)
+    const [totalPages, setTotalPages] = useState(0)
+    const [startPageAt, setStartPageAt] = useState(1)
     const [currentPage, setCurrentPage] = useState(1)
 
     useEffect(() => {
         const nextPage = async () => {
-            const [parks, total] = await getParks(currentPage)
+            setStartPageAt((currentPage - 1) * 24)
+            const filters = `${searchTerm ? `&q=${searchTerm}` : ''}${
+                state ? `&stateCode=${state}` : ''
+            }${
+                activities.length > 0
+                    ? `&activityCode=${activities.join(',')}`
+                    : ''
+            }`
+            const [parks, total] = await getParks(startPageAt, 24, filters)
             setTotalPages(total)
-            setFilteredParks(parks)
+            if (searchTerm) {
+                const filtered = parks.filter(
+                    (park) =>
+                        park.fullName
+                            .toLowerCase()
+                            .includes(searchTerm.toLowerCase()) &&
+                        (state === undefined || park.state.includes(state)),
+                )
+
+                setFilteredParks(filtered)
+            } else {
+                setFilteredParks(parks)
+            }
         }
         nextPage()
-    }, [currentPage])
-
-    useEffect(() => {
-        const filtered = parks.filter(
-            (park) =>
-                park.fullName
-                    .toLowerCase()
-                    .includes(searchTerm.toLowerCase()) &&
-                (activities.length === 0 ||
-                    park.activities.some((activity) =>
-                        activities.includes(activity),
-                    )),
-        )
-        setFilteredParks(filtered)
-    }, [searchTerm, parks, activities])
+    }, [currentPage, startPageAt, searchTerm, state, activities])
 
     return (
         <>
@@ -111,14 +124,15 @@ export default function Parks() {
                 <ParkFilter
                     searchTerm={searchTerm}
                     setSearchTerm={setSearchTerm}
-                    setActivities={setActivities}
-                    filterList={filterList([
-                        ...new Map(
-                            filteredParks
-                                .flatMap((park) => park.activities)
-                                .map((activity) => [activity.name, activity]),
-                        ).values(),
-                    ])}
+                    filterSetters={{
+                        state: setState,
+                        activity: setActivities,
+                    }}
+                    filterList={filterList(
+                        filteredParks
+                            .map((park) => [...park.activities])
+                            .flat(),
+                    ).sort((a, b) => a.label.localeCompare(b.label))}
                 />
             </div>
             <div
@@ -150,8 +164,17 @@ export default function Parks() {
                                 <div className="h-[15rem] w-96 rounded-md overflow-hidden relative">
                                     <img
                                         className="h-full w-full object-cover"
-                                        src={park.images[0].url}
-                                        alt={park.images[0].altText}
+                                        src={
+                                            park.images.length > 0
+                                                ? park.images[0].url
+                                                : `https://images.placeholders.dev/?width=240&height=384&text=${park.fullName}`
+                                        }
+                                        alt={
+                                            park.images.length > 0 &&
+                                            park.images[0].altText
+                                                ? park.images[0].altText
+                                                : park.fullName
+                                        }
                                     />
                                 </div>
 

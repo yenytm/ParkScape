@@ -3,15 +3,10 @@ import Login from './Login'
 import { useContext } from 'react'
 import { AuthContext } from '../utils/context/auth-context'
 import { SignOutUser } from '../utils/context/firebase'
-import { useEffect } from 'react'
-// import Login from "./Login";
 
 export function Navbar() {
     const { currentUser } = useContext(AuthContext)
 
-    useEffect(() => {
-        console.log(currentUser)
-    }, [currentUser])
     return (
         <>
             <div className="navbar bg-base-100 sticky top-0 z-50">

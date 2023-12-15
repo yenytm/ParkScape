@@ -1,15 +1,11 @@
 /* eslint-disable react/prop-types */
 import { AuthContext } from './context/auth-context'
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
 
 function RequireAuth({ children, to = '/login' }) {
     const { currentUser } = useContext(AuthContext)
     const location = useLocation()
-
-    useEffect(() => {
-        console.log('currentUser:', currentUser)
-    }, [currentUser])
 
     if (!currentUser) {
         return (
