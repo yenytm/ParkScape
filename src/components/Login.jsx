@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { signInUser } from '../utils/context/firebase'
 import { useContext } from 'react'
 import { AuthContext } from '../utils/context/auth-context'
@@ -87,11 +87,27 @@ export default function Login() {
                             Password
                         </label>
 
+                        <div className="flex justify-between items-center text-sm text-gray-600">
+                            <p>
+                                <input className="mr-2" type="checkbox" />
+                                Remember me
+                            </p>
+                        </div>
                         <div className="modal-action">
                             {/* if there is a button in form, it will close the modal */}
+
                             <button type="submit" className="btn">
                                 Sign In
                             </button>
+                        </div>
+
+                        <div>
+                            <p className="py-8">
+                                <span className="text-gray-600">
+                                    Don't have an account?
+                                </span>{' '}
+                                <Link to="/auth">Sign Up</Link>
+                            </p>
                         </div>
                     </form>
                 </div>
