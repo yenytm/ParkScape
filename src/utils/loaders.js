@@ -1,16 +1,20 @@
 import { transformParkData } from '../pages/Parks'
 
 const api_key = import.meta.env.VITE_NPS_KEY
-const url = `https://developer.nps.gov/api/v1/parks?API_KEY=${api_key}`
+const url = 'https://developer.nps.gov/api/v1/parks'
 
-export async function getParks(page = 0, limit = 24) {
+export async function getParks(start = 0, limit = 24, q) {
+    const fetchUrl = `${url}?start=${start}&limit=${limit}${
+        q ? q : ''
+    }&api_key=${api_key}`
+
     try {
-        const response = await fetch(`${url}&start=${page}&limit=${limit}`)
+        const response = await fetch(fetchUrl)
         const data = await response.json()
         const cleanData = data.data.map(transformParkData)
         return [cleanData, data.total]
     } catch (error) {
-        console.log(error)
+        console.log('apit', error)
     }
 }
 
@@ -19,7 +23,6 @@ export const getParkDetails = async ({ params }) => {
         const response = await fetch(url + `&parkCode=${params.code}`)
         const data = await response.json()
         const cleanData = data.data.map(transformParkData)
-        console.log(cleanData)
         return cleanData[0]
     } catch (error) {
         console.log(error)

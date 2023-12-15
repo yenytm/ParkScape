@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { signInUser } from '../utils/context/firebase'
-import { useContext } from 'react'
-import { AuthContext } from '../utils/context/auth-context'
+import { useState } from 'react'
+// import { useContext } from 'react'
+// import { AuthContext } from '../utils/context/auth-context'
 
 export default function Login() {
     const [formFields, setFormFields] = useState({
@@ -10,7 +10,7 @@ export default function Login() {
         password: '',
     })
 
-    const { currentUser } = useContext(AuthContext)
+    // const { currentUser } = useContext(AuthContext)
 
     const { email, password } = formFields
 
@@ -25,10 +25,6 @@ export default function Login() {
             password: '',
         })
     }
-
-    useEffect(() => {
-        console.log('currentUser:', currentUser)
-    }, [currentUser])
 
     const navigate = useNavigate()
     const handleSubmit = async (event) => {

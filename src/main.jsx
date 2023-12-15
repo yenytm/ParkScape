@@ -9,7 +9,7 @@ import Parks from './pages/Parks.jsx'
 import ParkDetails from './pages/ParkDetails.jsx'
 import RequireAuth from './utils/require-auth.jsx'
 import { AuthProvider } from './utils/context/auth-context.jsx'
-import { getParkDetails, getParks } from './utils/loaders.js'
+import { getParkDetails } from './utils/loaders.js'
 import UserProfile from './components/UserProfile.jsx'
 import Login from './components/Login.jsx'
 
@@ -44,7 +44,6 @@ const router = createBrowserRouter([
             {
                 path: '/parks',
                 element: <Parks />,
-                loader: getParks,
             },
             {
                 path: '/park/:name/:code',
@@ -63,7 +62,5 @@ const router = createBrowserRouter([
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <React.StrictMode>
         <RouterProvider router={router} />
-    </React.StrictMode>,
 )

@@ -1,5 +1,10 @@
 /* eslint-disable react/prop-types */
-export default function ParkFilter({ searchTerm, setSearchTerm, filterList }) {
+export default function ParkFilter({
+    searchTerm,
+    setSearchTerm,
+    filterList,
+    filterSetters,
+}) {
     return (
         <>
             <div className="join my-4 mx-auto">
@@ -18,16 +23,21 @@ export default function ParkFilter({ searchTerm, setSearchTerm, filterList }) {
                         <select
                             className="select select-bordered join-item"
                             key={filter.label}
+                            onChange={(e) =>
+                                filterSetters[filter.label.toLowerCase()](
+                                    e.target.value,
+                                )
+                            }
                         >
                             <option disabled defaultValue>
                                 {filter.label}
                             </option>
-                            {filter.options.map((option) => (
+                            {filter.options.map((option, index) => (
                                 <option
-                                    key={option.id + option.name}
-                                    value={option.name}
+                                    key={option.label + index}
+                                    value={option.value}
                                 >
-                                    {option.name}
+                                    {option.label}
                                 </option>
                             ))}
                         </select>
