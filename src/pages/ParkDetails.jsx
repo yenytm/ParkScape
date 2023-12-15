@@ -41,8 +41,8 @@ export default function ParkDetails() {
                     {}
                     <span>{park.addresses[0].line1}, </span>
                     <span>
-                        {park.addresses[0].city}
-                        {park.addresses[0].stateCode}
+                        {park.addresses[0].city}{', '}
+                        {park.addresses[0].stateCode} { ''}
                         {park.addresses[0].postalCode}
                     </span>
                 </p>
