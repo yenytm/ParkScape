@@ -76,10 +76,11 @@ export default function ParkDetails() {
                 <p >
                     <strong> Activities: </strong>
                     <span>
-                        {park.activities.map((activity, name) => (
-                            <span key={name}>
-                                {activity}
-                                {name < park.activities.length - 1 && ', '}
+                        {park.activities.map((activity) => (
+                            <span key={activity.label}>
+                                {activity.label}
+                                
+                                {activity.label < park.activities.length - 1 && ', '}
                             </span>
                         ))}
                     </span>

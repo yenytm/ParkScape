@@ -19,8 +19,10 @@ export async function getParks(start = 0, limit = 24, q) {
 }
 
 export const getParkDetails = async ({ params }) => {
+    console.log(params.code)
+    console.log(api_key)
     try {
-        const response = await fetch(url + `&parkCode=${params.code}`)
+        const response = await fetch(url + `?parkCode=${params.code}&api_key=${api_key}`)
         const data = await response.json()
         const cleanData = data.data.map(transformParkData)
         return cleanData[0]
