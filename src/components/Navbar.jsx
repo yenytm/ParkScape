@@ -60,7 +60,7 @@ export function Navbar() {
                     >
                         <img
                             className="LogoPic h-12 w-20"
-                            src="ParkScape.svg"
+                            src="ParkScapeLogo.png"
                             alt=""
                         />
                     </Link>
