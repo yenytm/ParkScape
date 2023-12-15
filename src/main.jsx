@@ -10,7 +10,8 @@ import ParkDetails from './pages/ParkDetails.jsx'
 import RequireAuth from './utils/require-auth.jsx'
 import { AuthProvider } from './utils/context/auth-context.jsx'
 import { getParkDetails, getParks } from './utils/loaders.js'
-import AuthRoot from './components/AuthRoot.jsx'
+import UserProfile from './components/UserProfile.jsx'
+import Login from './components/Login.jsx'
 
 const withAuthProvider = (Component, requireAuth = false) => {
     return (
@@ -52,15 +53,12 @@ const router = createBrowserRouter([
             },
         ],
     },
+    { path: '/login', element: withAuthProvider(Login) },
+
+
     {
-        path: '/private',
-        element: withAuthProvider(AuthRoot, true),
-        children: [
-            {
-                path: 'private',
-                element: <AuthRoot />,
-            },
-        ],
+        path: '/user',
+        element: withAuthProvider(UserProfile, true),
     },
 ])
 
