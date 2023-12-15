@@ -35,8 +35,8 @@ export default function ParkDetails() {
                 </div>
             </div>
             <div>
-                <h1 className="card-title">{park.fullName}</h1>
-                <p>
+                <h1 className="card-title my-2">{park.fullName}</h1>
+                <p id='addressDetails'  >
                     <strong> Location: </strong>
                     {}
                     <span>{park.addresses[0].line1}, </span>
@@ -47,38 +47,33 @@ export default function ParkDetails() {
                     </span>
                 </p>
 
-                <div className="collapse bg-base-200">
-                    <input type="checkbox" />
-                    <div className="collapse-title text-md font-md">
-                        Hours of Operation{' '}
-                    </div>
-                    <div className="collapse-content">
-                        <p className="space-y-1">
-                            {Object.entries(park.operatingHours.standardHours)
-                                .sort(
-                                    (a, b) =>
-                                        dayOrder.indexOf(a[0]) -
-                                        dayOrder.indexOf(b[0]),
-                                )
-                                .map(([dayName, hours]) => (
-                                    <span
-                                        key={dayName}
-                                        className="block font-semibold"
-                                    >
-                                        {dayName.charAt(0).toUpperCase() +
-                                            dayName.slice(1)}
-                                        : {hours}
-                                    </span>
-                                ))}
-                        </p>
-                    </div>
+                <div>
+                    <div className="my-1 font-semibold">Hours of Operation: </div>
+                    <p className="space-y-1 my-2 mx-1 ">
+                        {Object.entries(park.operatingHours.standardHours)
+                            .sort(
+                                (a, b) =>
+                                    dayOrder.indexOf(a[0]) -
+                                    dayOrder.indexOf(b[0]),
+                            )
+                            .map(([dayName, hours]) => (
+                                <span
+                                    key={dayName}
+                                    className="block font-semibold "
+                                >
+                                    {dayName.charAt(0).toUpperCase() +
+                                        dayName.slice(1)}
+                                    : {hours}
+                                </span>
+                            ))}
+                    </p>
                 </div>
 
-                <p>
+                <p className='my-2 '>
                     <strong> Park Description: </strong>
                     {} {park.description}
                 </p>
-                <p>
+                <p >
                     <strong> Activities: </strong>
                     <span>
                         {park.activities.map((activity, name) => (
